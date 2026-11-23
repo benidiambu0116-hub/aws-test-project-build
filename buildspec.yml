@@ -1,0 +1,25 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.12
+    commands:
+      - pip install -r requirements.txt
+  build:
+    commands:
+      - pytest --junitxml=reports/results.xml --tb=short
+  post_build:
+    commands:
+      - echo "Build completed on `date`"
+
+artifacts:
+  files:
+    - "**/*"
+  base-directory: .
+
+reports:
+  pytest-reports:
+    files:
+      - reports/results.xml
+    discard-paths: yes
